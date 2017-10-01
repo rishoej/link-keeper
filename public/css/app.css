@@ -1,7 +1,7 @@
 
 a:not([class]){
   text-decoration: none;
-  background: white;
+  background: none;
   color:#029e74;
 }
 body{
@@ -41,6 +41,7 @@ li{
 .cardLink{
   text-decoration: none;
   color:#029e74;
+  word-break: break-all;
 }
 .cardDescription{
 

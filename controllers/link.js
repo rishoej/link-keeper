@@ -3,7 +3,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 exports.linkGet = function(req, res) {
-  Link.find({ userid: 'tobias' }).exec(function(err, links) {
+  Link.find({ userid: 'tobias'}).exec(function(err, links) {
     if (err) throw err;
     res.send({
       links: links
@@ -12,6 +12,9 @@ exports.linkGet = function(req, res) {
 };
 
 exports.linkPost = function(req, res) {
+  /*var userid = req.user._id;
+  console.log(req.user_id);
+  if (userid !== false) {*/
   var linkData = req.body.link;
   var titleData = req.body.title;
   var descriptionData = req.body.description;
@@ -20,14 +23,13 @@ exports.linkPost = function(req, res) {
     link: linkData,
     title: titleData,
     description: descriptionData,
-    userid: 'tobias',
+    userid: userid,
   });
 
   link.save(function(err) {
     if (err) throw err;
     console.log('Link created!');
   });
-
 };
 
 

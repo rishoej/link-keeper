@@ -172,11 +172,8 @@ app.use(function(req, res) {
       let head = getSeo(req.url);
 
       head = `
-      <head>
-          <meta charset="utf-8" />
-          <title>${head.title}</title>
-          <meta content="${head.description}" property="og:description" />
-      </head>
+        <title>${head.title}</title>
+        <meta content="${head.description}" property="og:description" />
       `;
 
       res.render('layout', {

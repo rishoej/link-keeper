@@ -84,7 +84,7 @@ exports.signupPost = function(req, res, next) {
       password: req.body.password
     });
     user.save(function(err) {
-    res.send({ token: generateToken(user), user: user });
+      res.send({ token: generateToken(user), user: user });
     });
   });
 };

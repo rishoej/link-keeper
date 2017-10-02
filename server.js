@@ -17,6 +17,7 @@ var request = require('request');
 var sass = require('node-sass-middleware');
 var webpack = require('webpack');
 var config = require('./webpack.config');
+var Link = require('./models/Link');
 
 // Load environment variables from .env file
 dotenv.load();
@@ -149,9 +150,9 @@ function getSeo(url){
   return head;
 }
 
-
 // React server rendering
 app.use(function(req, res) {
+
   var initialState = {
     auth: { token: req.cookies.token, user: req.user },
     messages: {}

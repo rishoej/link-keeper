@@ -1,4 +1,4 @@
-export function submitCreateLink(link, title, description) {
+export function submitCreateLink(userid, link, title, description) {
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_LINKS'
@@ -7,6 +7,7 @@ export function submitCreateLink(link, title, description) {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        userid: userid,
         link: link,
         title: title,
         description: description,

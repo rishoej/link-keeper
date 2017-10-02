@@ -8,6 +8,7 @@ class Links extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: props.user,
       link: '',
       title: '',
       description: '',
@@ -20,6 +21,7 @@ class Links extends React.Component {
       searchString: '',
       searchResults: ''
     };
+    console.log('user', this.state.user);
     this.handleScrapper = this.handleScrapper.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getLinks = this.getLinks.bind(this);
@@ -54,8 +56,12 @@ class Links extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     if(this.state.displayFullInput){
-      console.log(this.state.link, this.state.title, this.state.description)
-      this.props.dispatch(submitCreateLink(this.state.link, this.state.title, this.state.description));
+      this.props.dispatch(submitCreateLink(
+        this.state.user._id,
+        this.state.link,
+        this.state.title,
+        this.state.description)
+      );
       this.setState({
         link: '',
         title: '',
@@ -113,7 +119,7 @@ class Links extends React.Component {
   }
 
   getLinks(){
-    fetch('/api/link')
+    fetch('/api/link?userid=' + this.state.user._id)
       .then((response) => {
         return response.json();
       })
@@ -214,6 +220,8 @@ class Links extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    token: state.auth.token,
+    user: state.auth.user,
     messages: state.messages
   };
 };

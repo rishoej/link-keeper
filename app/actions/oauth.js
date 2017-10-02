@@ -5,7 +5,7 @@ import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
 
 let domain = 'http://localhost:3000';
-if(!location.hostname === "localhost"){
+if(!location.hostname !== 'localhost'){
   domain = 'https://morning-cliffs-15123.herokuapp.com';
 }
 // Sign in with Facebook

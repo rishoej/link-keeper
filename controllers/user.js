@@ -9,7 +9,7 @@ var User = require('../models/User');
 
 function generateToken(user) {
   var payload = {
-    iss: 'my.domain.com',
+    iss: 'https://morning-cliffs-15123.herokuapp.com',
     sub: user.id,
     iat: moment().unix(),
     exp: moment().add(7, 'days').unix()

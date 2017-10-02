@@ -7,9 +7,9 @@ import { browserHistory } from 'react-router';
 // Sign in with Facebook
 export function facebookLogin() {
   const facebook = {
-    url: 'http://localhost:3000/auth/facebook',
+    url: '/auth/facebook',
     clientId: '980220002068787',
-    redirectUri: 'http://localhost:3000/auth/facebook/callback',
+    redirectUri: '/auth/facebook/callback',
     authorizationUrl: 'https://www.facebook.com/v2.5/dialog/oauth',
     scope: 'email,user_location',
     width: 580,
@@ -29,8 +29,8 @@ export function facebookLogin() {
 // Sign in with Twitter
 export function twitterLogin() {
   const twitter = {
-    url: 'http://localhost:3000/auth/twitter',
-    redirectUri: 'http://localhost:3000/auth/twitter/callback',
+    url: '/auth/twitter',
+    redirectUri: '/auth/twitter/callback',
     authorizationUrl: 'https://api.twitter.com/oauth/authenticate'
   };
 
@@ -48,9 +48,9 @@ export function twitterLogin() {
 // Sign in with Google
 export function googleLogin() {
   const google = {
-    url: 'http://localhost:3000/auth/google',
+    url: '/auth/google',
     clientId: '814958990796-p1centjebv1k0htp3am05tfg5k10nl0k.apps.googleusercontent.com',
-    redirectUri: 'http://localhost:3000/auth/google/callback',
+    redirectUri: '/auth/google/callback',
     authorizationUrl: 'https://accounts.google.com/o/oauth2/auth',
     scope: 'openid profile email',
     width: 452,
@@ -258,4 +258,3 @@ function closePopup({ window, interval }) {
     resolve();
   });
 }
-

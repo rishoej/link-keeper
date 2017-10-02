@@ -96,6 +96,8 @@ class Profile extends React.Component {
             <br/>
             <button type="submit">Change Password</button>
           </form>
+        </card>
+        <card>
           <h4>Linked Accounts</h4>
           <p>{facebookLinkedAccount}</p>
           <p>{twitterLinkedAccount}</p>

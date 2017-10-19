@@ -93,8 +93,8 @@ if (app.get('env') === 'development') {
 
 app.post('/contact', contactController.contactPost);
 app.get('/api/scrapper', scrapperController.scrapperGet);
-app.post('/link', linkController.linkPost);
-app.get('/api/link', linkController.linkGet);
+app.post('/link', userController.ensureAuthenticated, linkController.linkPost);
+app.get('/api/link', userController.ensureAuthenticated, linkController.linkGet);
 app.delete('/link', linkController.linkDelete);
 app.put('/link', linkController.linkUpdate);
 app.put('/account', userController.ensureAuthenticated, userController.accountPut);

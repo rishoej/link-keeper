@@ -1,11 +1,14 @@
-export function submitCreateLink(userid, link, title, description) {
+export function submitCreateLink(userid, link, title, description, token) {
   return (dispatch) => {
     dispatch({
       type: 'CLEAR_LINKS'
     });
     return fetch('/link', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({
         userid: userid,
         link: link,
@@ -32,10 +35,13 @@ export function submitCreateLink(userid, link, title, description) {
   };
 }
 
-export function scrapSite(site) {
+export function scrapSite(site, token) {
   return fetch('/api/scrapper?site=' + site, {
       method: 'get',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
     }).then((response) => {
       if (response.ok) {
         return response;
@@ -43,10 +49,13 @@ export function scrapSite(site) {
     });
 }
 
-export function deleteLink(id, callback) {
+export function deleteLink(id, token) {
   return fetch('/link', {
       method: 'delete',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({
         id: id,
       })
@@ -57,10 +66,13 @@ export function deleteLink(id, callback) {
     });
 }
 
-export function updateLink(id, link, title, description, callback) {
+export function updateLink(id, link, title, description, token) {
   return fetch('/link', {
       method: 'put',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({
         id: id,
         link: link,

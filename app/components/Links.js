@@ -21,7 +21,7 @@ class Links extends React.Component {
       searchString: '',
       searchResults: ''
     };
-    console.log('user', this.state.user);
+    console.log('token', this.props.token);
     this.handleScrapper = this.handleScrapper.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getLinks = this.getLinks.bind(this);
@@ -35,22 +35,28 @@ class Links extends React.Component {
 
   handleScrapper(event) {
     event.preventDefault();
-    fetch('/api/scrapper?site=' + this.state.link)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let filterData = data.links;
-        this.setState({
-          link: data.site.link,
-          title: data.site.title,
-          description: data.site.description,
-          displayFullInput: true
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    fetch('/api/scrapper?site=' + this.state.link, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.props.token}`
+      },
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let filterData = data.links;
+      this.setState({
+        link: data.site.link,
+        title: data.site.title,
+        description: data.site.description,
+        displayFullInput: true
       });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   handleSubmit(event) {
@@ -60,8 +66,9 @@ class Links extends React.Component {
         this.state.user._id,
         this.state.link,
         this.state.title,
-        this.state.description)
-      );
+        this.state.description,
+        this.props.token
+      ));
       this.setState({
         link: '',
         title: '',
@@ -80,7 +87,7 @@ class Links extends React.Component {
     this.setState((prevState) => ({
       links: prevState.links.filter((_, i) => i !== index)
     }));
-    this.props.dispatch(deleteLink(id,''));
+    this.props.dispatch(deleteLink(id, this.props.token));
   }
 
   handleUpdate(link, index) {
@@ -100,6 +107,7 @@ class Links extends React.Component {
       this.state.updateLink,
       this.state.updateTitle,
       this.state.updateDescription,
+      this.props.token
     ));
 
     let stateCopy = Object.assign({}, this.state);
@@ -119,22 +127,28 @@ class Links extends React.Component {
   }
 
   getLinks(){
-    fetch('/api/link?userid=' + this.state.user._id)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let filterData = data.links;
-        filterData.sort((a, b) => {
-            return parseFloat(b.time) -parseFloat(a.time);
-        });
-        this.setState({
-          links:filterData
-        });
-      })
-      .catch((err) => {
-        console.log(err);
+    fetch('/api/link?userid=' + this.state.user._id, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.props.token}`
+      },
+    })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let filterData = data.links;
+      filterData.sort((a, b) => {
+          return parseFloat(b.time) -parseFloat(a.time);
       });
+      this.setState({
+        links:filterData
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   handleSearch(event) {
